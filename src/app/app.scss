@@ -1,0 +1,144 @@
+@use '../styles' as *;
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.menu-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 16px;
+  background: #e9eef7;
+  padding: 0;
+
+  span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #2c3e50;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:nth-child(2) {
+      margin: 4px 0;
+    }
+  }
+}
+
+.topbar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.layout-body {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1f2933;
+  color: #e5e7eb;
+  padding: 16px 0;
+  position: fixed;
+  top: 64px;
+  left: -260px;
+  bottom: 0;
+  transition: left 0.25s ease;
+  z-index: 1100;
+}
+
+.sidebar-open {
+  left: 0;
+}
+
+.sidebar-header {
+  padding: 0 20px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+.sidebar-nav {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.sidebar-link {
+  display: block;
+  padding: 10px 20px;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 0;
+  margin-left: 0;
+  transition: filter 0.25s ease;
+}
+
+.content-dimmed {
+  filter: blur(1px) brightness(0.9);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1050;
+}
+
+@media (min-width: 900px) {
+  .sidebar {
+    left: 0;
+  }
+
+  .app-layout {
+    padding-left: 240px;
+  }
+
+  .backdrop {
+    display: none;
+  }
+
+  .content {
+    margin-left: 0;
+    filter: none !important;
+  }
+}

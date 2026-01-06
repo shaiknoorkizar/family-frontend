@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="header">
+    <h1>Family Management</h1>
+    <p>Select a family to view its members</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading families...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div class="families-header-row" *ngIf="selectedFamily">
+      <button type="button" class="back-button" (click)="clearSelection()">
+        ← Back to all families
+      </button>
+    </div>
+
+    <div *ngIf="families.length > 0" class="families-grid">
+      <button
+        *ngFor="let f of families"
+        type="button"
+        class="family-card"
+        (click)="onFamilyClick(f)"
+        [style.display]="selectedFamily && selectedFamily.id !== f.id ? 'none' : 'block'">
+        <div class="family-icon">👨‍👩‍👧‍👦</div>
+        <h3 class="family-name">{{f.name}}</h3>
+      </button>
+    </div>
+    <div *ngIf="families.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <p>No families found.</p>
+    </div>
+
+    <!-- Inline members tree for selected family -->
+    <div *ngIf="selectedFamily" class="members-panel">
+      <div class="members-header-row">
+        <h2 class="members-title">
+          Members of {{ selectedFamily.name }}
+        </h2>
+
+        <!-- Add member button goes to detailed members page with add form -->
+        <button
+          type="button"
+          class="add-member-button"
+          [routerLink]="['/members', selectedFamily.id]">
+          + Add member
+        </button>
+      </div>
+
+      <div *ngIf="membersLoading" class="loading-container small">
+        <div class="spinner"></div>
+        <p>Loading members...</p>
+      </div>
+
+      <div *ngIf="membersError" class="error-container">
+        <h3>Error</h3>
+        <p>{{ membersError }}</p>
+      </div>
+
+      <ul *ngIf="!membersLoading && !membersError && members.length > 0" class="member-tree">
+        <li
+          *ngFor="let m of members"
+          class="member-node"
+          [class.selected]="selectedMember?.id === m.id"
+          (click)="onMemberClick(m)">
+          <div class="member-avatar">
+            👤
+          </div>
+          <div class="member-content">
+            <div class="member-name">{{ m.name }}</div>
+            <div class="member-meta">
+              <span class="member-relationship">{{ m.relationship }}</span>
+              <span class="member-separator">•</span>
+              <span class="member-dob">{{ m.dob }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div *ngIf="!membersLoading && !membersError && members.length === 0" class="empty-state members-empty">
+        <div class="empty-icon">👥</div>
+        <p>No members found for this family.</p>
+      </div>
+
+      <!-- Member detail report card -->
+      <div *ngIf="selectedMember" class="member-detail-card">
+        <div class="member-detail-header">
+          <div class="member-detail-photo">
+            <div class="photo-circle">
+              👤
+            </div>
+            <button type="button" class="photo-add-button">
+              📷 Add photo
+            </button>
+          </div>
+          <div class="member-detail-main">
+            <h3 class="member-detail-name">{{ selectedMember.name }}</h3>
+            <p class="member-detail-subtitle">
+              {{ selectedMember.relationship }} of {{ selectedFamily?.name }}
+            </p>
+          </div>
+        </div>
+
+        <div class="member-detail-body">
+          <div class="detail-row">
+            <div class="detail-label">Date of Birth</div>
+            <div class="detail-value">{{ selectedMember.dob }}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Profession</div>
+            <div class="detail-value">{{ selectedMember.profession || '—' }}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Qualification</div>
+            <div class="detail-value">{{ selectedMember.qualification || '—' }}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Member ID</div>
+            <div class="detail-value">#{{ selectedMember.id }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
