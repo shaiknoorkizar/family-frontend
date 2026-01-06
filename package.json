@@ -2,17 +2,11 @@
   "name": "family-frontend",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "npm@10.9.3",
-
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
-    "watch": "ng build --watch --configuration development",
-    "test": "echo \"Skipping tests\"",
-    "serve:ssr:family-frontend": "node dist/family-frontend/server/server.mjs"
+    "serve:ssr": "node dist/family-frontend/server/server.mjs"
   },
-
   "dependencies": {
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
@@ -26,8 +20,12 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
-
   "devDependencies": {
     "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.4",
-    "@angular/com
+    "@angular/compiler-cli": "^21.0.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "typescript": "~5.9.2"
+  }
+}
