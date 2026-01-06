@@ -26,7 +26,7 @@ jobs:
 
       # Build Angular (browser + server)
       - name: Build Angular
-        run: npm run build --configuration production
+        run: npm run build
 
       # Package only the build output (small + clean)
       - name: Prepare deployment package
@@ -67,3 +67,4 @@ jobs:
           app-name: 'family-app'
           slot-name: 'Production'
           package: .
+
