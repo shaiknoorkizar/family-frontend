@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "ng serve",
-    "build": "ng build --configuration production",
+    "build": "ng build family-frontend --configuration production",
     "serve:ssr": "node dist/family-frontend/server/server.mjs"
   },
   "dependencies": {
