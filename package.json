@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "ng serve",
+    "start": "ng server.js",
     "build": "ng build family-frontend --configuration production",
     "serve:ssr": "node dist/family-frontend/server/server.mjs"
   },
